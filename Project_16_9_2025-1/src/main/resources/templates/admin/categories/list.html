@@ -38,6 +38,26 @@
                         </tbody>
                     </table>
                 </div>
+                <!-- Phân trang -->
+                <div th:if="${totalPages > 1}" class="d-flex justify-content-center mt-3">
+                    <nav>
+                        <ul class="pagination">
+                            <!-- Nút Previous -->
+                            <li th:class="${currentPage == 0} ? 'page-item disabled' : 'page-item'">
+                                <a class="page-link" th:href="@{/admin/categories(page=${currentPage - 1}, size=5, name=${name})}">Previous</a>
+                            </li>
+                            <!-- Các số trang -->
+                            <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" 
+                                th:class="${i == currentPage} ? 'page-item active' : 'page-item'">
+                                <a class="page-link" th:href="@{/admin/categories(page=${i}, size=5, name=${name})}" th:text="${i + 1}"></a>
+                            </li>
+                            <!-- Nút Next -->
+                            <li th:class="${currentPage == totalPages - 1} ? 'page-item disabled' : 'page-item'">
+                                <a class="page-link" th:href="@{/admin/categories(page=${currentPage + 1}, size=5, name=${name})}">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>
